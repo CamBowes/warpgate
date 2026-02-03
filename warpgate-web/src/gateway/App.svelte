@@ -88,7 +88,7 @@
         }
         socket = null
         if ($serverInfo?.username) {
-            socket = new WebSocket(`wss://${location.host}/@warpgate/api/auth/web-auth-requests/stream`)
+            socket = new WebSocket(`wss://${location.host}/warpgate/api/auth/web-auth-requests/stream`)
             socket.addEventListener('message', () => {
                 reloadWebAuthRequests()
             })
@@ -105,7 +105,7 @@
             <DelayedSpinner />
         {:else}
             <div class="d-flex align-items-center mt-5 mb-5">
-                <a class="logo" href="/@warpgate">
+                <a class="logo" href="/warpgate">
                     <Brand />
                 </a>
 

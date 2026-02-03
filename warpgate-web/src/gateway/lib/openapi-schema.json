@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "/@warpgate/api"
+      "url": "/warpgate/api"
     }
   ],
   "tags": [],

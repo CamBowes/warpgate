@@ -52,7 +52,7 @@ function loadTargets(
 
 function selectTarget (target: TargetSnapshot) {
     if (target.kind === TargetKind.WebAdmin) {
-        loadURL('/@warpgate/admin')
+        loadURL('/warpgate/admin')
     } else if (target.kind === TargetKind.Http) {
         loadURL(`/?warpgate-target=${target.name}`)
     } else {
@@ -115,10 +115,10 @@ function groupInfoFromTarget (target: TargetSnapshot): GroupInfo {
             class="list-group-item list-group-item-action target-item"
             href={
                 target.kind === TargetKind.WebAdmin
-                    ? '/@warpgate/admin'
+                    ? '/warpgate/admin'
                     : target.kind === TargetKind.Http
                         ? `/?warpgate-target=${target.name}`
-                        : '/@warpgate/admin'
+                        : '/warpgate/admin'
             }
             onclick={e => {
                 if (e.metaKey || e.ctrlKey) {

@@ -95,7 +95,7 @@
             throw new Error('Invalid recording type')
         }
 
-        url = `/@warpgate/admin/api/recordings/${recording.id}/cast`
+        url = `/warpgate/admin/api/recordings/${recording.id}/cast`
 
         term.loadAddon(serializeAddon)
         term.open(containerElement)
@@ -114,7 +114,7 @@
 
         await seek(duration)
 
-        socket = new WebSocket(`wss://${location.host}/@warpgate/admin/api/recordings/${recording.id}/stream`)
+        socket = new WebSocket(`wss://${location.host}/warpgate/admin/api/recordings/${recording.id}/stream`)
         socket.addEventListener('message', function (event) {
             let message = JSON.parse(event.data)
             if ('data' in message) {

@@ -9,7 +9,7 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '@s
 async function logout () {
     await api.logout()
     await reloadServerInfo()
-    location.href = '/@warpgate'
+    location.href = '/warpgate'
 }
 
 async function singleLogout () {
@@ -20,7 +20,7 @@ async function singleLogout () {
 
 {#if $serverInfo?.username}
     <div class="ms-auto">
-        <a href="/@warpgate/#/profile">
+        <a href="/warpgate/#/profile">
             {$serverInfo.username}
         </a>
         {#if $serverInfo.authorizedViaTicket}

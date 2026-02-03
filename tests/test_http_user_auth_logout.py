@@ -37,7 +37,7 @@ class Test:
         session.verify = False
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",
@@ -52,7 +52,7 @@ class Test:
         assert response.status_code // 100 == 2
         assert response.json()["path"] == "/some/path"
 
-        response = session.post(f"{url}/@warpgate/api/auth/logout")
+        response = session.post(f"{url}/warpgate/api/auth/logout")
 
         response = session.get(
             f"{url}/?warpgate-target={echo_target.name}", allow_redirects=False

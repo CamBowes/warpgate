@@ -60,7 +60,7 @@ class TestHTTPUserAuthOTP:
         totp = pyotp.TOTP(otp_key_base32)
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",
@@ -75,7 +75,7 @@ class TestHTTPUserAuthOTP:
         assert response.status_code // 100 != 2
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/otp",
+            f"{url}/warpgate/api/auth/otp",
             json={
                 "otp": totp.now(),
             },
@@ -137,7 +137,7 @@ class TestHTTPUserAuthOTP:
         session.verify = False
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",
@@ -146,7 +146,7 @@ class TestHTTPUserAuthOTP:
         assert response.status_code // 100 != 2
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/otp",
+            f"{url}/warpgate/api/auth/otp",
             json={
                 "otp": "00000000",
             },

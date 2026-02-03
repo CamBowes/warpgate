@@ -19,7 +19,7 @@
 
     let activeSessionCount: number|undefined = $state()
 
-    let socket = new WebSocket(`wss://${location.host}/@warpgate/admin/api/sessions/changes`)
+    let socket = new WebSocket(`wss://${location.host}/warpgate/admin/api/sessions/changes`)
     let sessionChanges$ = fromEvent(socket, 'message')
     onDestroy(() => socket.close())
 

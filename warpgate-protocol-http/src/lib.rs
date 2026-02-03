@@ -103,7 +103,7 @@ impl ProtocolServer for HTTPProtocolServer {
         let admin_api_app = admin_api_app(&self.services).into_endpoint();
         let api_service =
             OpenApiService::new(crate::api::get(), "Warpgate user API", warpgate_version())
-                .server("/@warpgate/api");
+                .server("/warpgate/api");
         let ui = api_service.stoplight_elements();
         let spec = api_service.spec_endpoint();
 
@@ -172,7 +172,7 @@ impl ProtocolServer for HTTPProtocolServer {
 
         let app = Route::new()
             .nest(
-                "/@warpgate",
+                "/warpgate",
                 Route::new()
                     .nest("/api/playground", ui)
                     .nest("/api", api_service.with(cache_bust()))

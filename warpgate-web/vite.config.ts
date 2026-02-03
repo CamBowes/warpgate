@@ -10,7 +10,7 @@ export default defineConfig({
         tsconfigPaths(),
         // checker({ typescript: true }),
     ],
-    base: '/@warpgate',
+    base: '/warpgate',
     build: {
         sourcemap: true,
         manifest: true,

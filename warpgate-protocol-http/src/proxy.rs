@@ -362,11 +362,11 @@ async fn copy_client_body_and_embed(
     let script_manifest = lookup_built_file("src/embed/index.ts")?;
 
     let mut inject = format!(
-        r#"<script type="module" src="/@warpgate/{}"></script>"#,
+        r#"<script type="module" src="/warpgate/{}"></script>"#,
         script_manifest.file
     );
     for css_file in script_manifest.css.unwrap_or_default() {
-        inject += &format!(r#"<link rel="stylesheet" href="/@warpgate/{css_file}" />"#,);
+        inject += &format!(r#"<link rel="stylesheet" href="/warpgate/{css_file}" />"#,);
     }
 
     let before = "</head>";

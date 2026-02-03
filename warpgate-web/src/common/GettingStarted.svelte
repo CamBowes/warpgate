@@ -21,7 +21,7 @@
             <Fa icon={faExternalLink} />
         </a>
 
-        <a href="/@warpgate/admin#/config/targets/create" class="list-group-item list-group-item-action d-flex align-items-center">
+        <a href="/warpgate/admin#/config/targets/create" class="list-group-item list-group-item-action d-flex align-items-center">
             <Fa icon={setupState.hasTargets ? faCircleCheck : faCircle} />
             <div class="item-text">
                 <div>Add a target</div>
@@ -29,7 +29,7 @@
             </div>
         </a>
 
-        <a href="/@warpgate/admin#/config/users/create" class="list-group-item list-group-item-action d-flex align-items-center">
+        <a href="/warpgate/admin#/config/users/create" class="list-group-item list-group-item-action d-flex align-items-center">
             <Fa icon={setupState.hasUsers ? faCircleCheck : faCircle} />
             <div class="item-text">
                 <div>Add a non-admin user</div>

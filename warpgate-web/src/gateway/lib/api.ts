@@ -1,7 +1,7 @@
 import { DefaultApi, Configuration, ResponseError } from './api-client'
 
 const configuration = new Configuration({
-    basePath: '/@warpgate/api',
+    basePath: '/warpgate/api',
 })
 
 export const api = new DefaultApi(configuration)

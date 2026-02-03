@@ -51,14 +51,14 @@ class Test:
         print(unquote(redirect))
         assert (
             unquote(redirect)
-            == f"/@warpgate#/login?next=/?warpgate-target={target.name}"
+            == f"/warpgate#/login?next=/?warpgate-target={target.name}"
         )
 
-        response = session.get(f"{url}/@warpgate/api/info").json()
+        response = session.get(f"{url}/warpgate/api/info").json()
         assert response["username"] is None
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",
@@ -66,7 +66,7 @@ class Test:
         )
         assert response.status_code == 201
 
-        response = session.get(f"{url}/@warpgate/api/info").json()
+        response = session.get(f"{url}/warpgate/api/info").json()
         assert response["username"] == user.username
 
         response = session.get(

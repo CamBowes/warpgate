@@ -65,7 +65,7 @@ class Test:
         headers = {"Host": f"localhost:{shared_wg.http_port}"}
 
         await session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",
@@ -73,7 +73,7 @@ class Test:
             headers=headers,
             ssl=False,
         )
-        ws = await session.ws_connect(url.replace('https:', 'wss:') + '/@warpgate/api/auth/web-auth-requests/stream', ssl=False)
+        ws = await session.ws_connect(url.replace('https:', 'wss:') + '/warpgate/api/auth/web-auth-requests/stream', ssl=False)
 
         client = processes.start(
             [
@@ -97,10 +97,10 @@ class Test:
         msg = await ws.receive(5)
 
         auth_id = msg.data
-        auth_state = await (await session.get(f'{url}/@warpgate/api/auth/state/{auth_id}', ssl=False)).json()
+        auth_state = await (await session.get(f'{url}/warpgate/api/auth/state/{auth_id}', ssl=False)).json()
         assert auth_state['protocol'] == 'PostgreSQL'
         assert auth_state['state'] == 'WebUserApprovalNeeded'
-        r = await session.post(f'{url}/@warpgate/api/auth/state/{auth_id}/approve', ssl=False)
+        r = await session.post(f'{url}/warpgate/api/auth/state/{auth_id}/approve', ssl=False)
         assert r.status == 200
 
         client.stdin.write(b"\r\n")

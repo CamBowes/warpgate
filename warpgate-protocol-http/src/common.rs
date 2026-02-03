@@ -288,7 +288,7 @@ pub fn gateway_redirect(req: &Request) -> Response {
         .unwrap_or_else(|| "".into());
 
     let path = format!(
-        "/@warpgate#/login?next={}",
+        "/warpgate#/login?next={}",
         utf8_percent_encode(&path, NON_ALPHANUMERIC),
     );
 

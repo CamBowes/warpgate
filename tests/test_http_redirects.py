@@ -38,7 +38,7 @@ class TestHTTPRedirects:
         headers = {"Host": f"localhost:{shared_wg.http_port}"}
 
         session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",

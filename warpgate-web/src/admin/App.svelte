@@ -38,7 +38,7 @@
 <Loadable promise={initPromise}>
     <div class="app container-lg">
         <header>
-            <a href="/@warpgate" class="d-flex logo-link me-4">
+            <a href="/warpgate" class="d-flex logo-link me-4">
                 <Brand />
             </a>
             {#if $serverInfo?.username}

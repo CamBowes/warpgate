@@ -11,7 +11,7 @@ except ImportError:
 @contextmanager
 def admin_client(host):
     config = sdk.Configuration(
-        host=f"{host}/@warpgate/admin/api",
+        host=f"{host}/warpgate/admin/api",
         api_key={
             "TokenSecurityScheme": "token-value",
         },

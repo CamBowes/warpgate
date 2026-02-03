@@ -21,7 +21,7 @@ class TestAPIAuth:
         url = f"https://localhost:{shared_wg.http_port}"
 
         config = sdk.Configuration(
-            host=f"{url}/@warpgate/admin/api",
+            host=f"{url}/warpgate/admin/api",
         )
         config.verify_ssl = False
 
@@ -63,7 +63,7 @@ class TestAPIAuth:
         session = requests.Session()
         session.verify = False
         r = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 'username': user.username,
                 'password': '123',
@@ -71,5 +71,5 @@ class TestAPIAuth:
         )
         assert r.status_code == 201, r.text
 
-        r = session.get(f"{url}/@warpgate/admin/api/sessions")
+        r = session.get(f"{url}/warpgate/admin/api/sessions")
         assert r.status_code == 200, r.text

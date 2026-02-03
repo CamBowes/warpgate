@@ -92,7 +92,7 @@ def create_ticket(url, username, target_name):
     session = requests.Session()
     session.verify = False
     response = session.post(
-        f"{url}/@warpgate/api/auth/login",
+        f"{url}/warpgate/api/auth/login",
         json={
             "username": "admin",
             "password": "123",
@@ -100,7 +100,7 @@ def create_ticket(url, username, target_name):
     )
     assert response.status_code // 100 == 2
     response = session.post(
-        f"{url}/@warpgate/admin/api/tickets",
+        f"{url}/warpgate/admin/api/tickets",
         json={
             "username": username,
             "target_name": target_name,

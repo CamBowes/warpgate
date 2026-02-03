@@ -7,7 +7,7 @@ use warpgate_core::Services;
 pub fn admin_api_app(services: &Services) -> impl IntoEndpoint {
     let api_service =
         OpenApiService::new(crate::api::get(), "Warpgate admin API", warpgate_version())
-            .server("/@warpgate/admin/api");
+            .server("/warpgate/admin/api");
 
     let ui = api_service.stoplight_elements();
     let spec = api_service.spec_endpoint();

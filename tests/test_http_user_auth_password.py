@@ -46,7 +46,7 @@ class TestHTTPUserAuthPassword:
         assert response.status_code // 100 != 2
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "123",
@@ -95,7 +95,7 @@ class TestHTTPUserAuthPassword:
         session.verify = False
 
         response = session.post(
-            f"{url}/@warpgate/api/auth/login",
+            f"{url}/warpgate/api/auth/login",
             json={
                 "username": user.username,
                 "password": "321321",

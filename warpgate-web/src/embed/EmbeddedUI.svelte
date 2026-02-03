@@ -49,9 +49,9 @@ function stopDragging () {
 
 function goHome () {
     if (externalHost) {
-        location.href = `https://${externalHost}/@warpgate`
+        location.href = `https://${externalHost}/warpgate`
     } else {
-        location.href = '/@warpgate'
+        location.href = '/warpgate'
     }
 }
 
