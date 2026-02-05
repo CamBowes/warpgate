@@ -21,8 +21,14 @@ use crate::SsoError;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct WarpgateClaims {
-    // This uses the "warpgate_roles" claim from OIDC
+    /// Warpgate-specific role names (OIDC claim "warpgate_roles")
     pub warpgate_roles: Option<Vec<String>>,
+    /// Standard "roles" claim (e.g. Entra app roles)
+    #[serde(default)]
+    pub roles: Option<Vec<String>>,
+    /// Standard "groups" claim (e.g. Entra group object IDs)
+    #[serde(default)]
+    pub groups: Option<Vec<String>>,
 }
 
 impl AdditionalClaims for WarpgateClaims {}

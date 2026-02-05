@@ -133,7 +133,12 @@
     <div class="mt-5">
         <div class="page-summary-bar">
             {#if authState === ApiAuthState.NotStarted || authState === ApiAuthState.Failed}
-                <h1>Welcome</h1>
+                <div class="d-flex flex-column">
+                    <h1>Welcome</h1>
+                    <Alert color="info" class="mt-2">
+                        This is a DSE internal restricted system, all access is logged
+                    </Alert>
+                </div>
             {:else}
                 <h1>Continue login</h1>
             {/if}
@@ -233,13 +238,11 @@
                             {#if ssoProvider.kind === SsoProviderKind.Google}
                                 <Fa fw class="me-2" icon={faGoogle} />
                             {/if}
-                            {#if ssoProvider.kind === SsoProviderKind.Azure}
                                 <Fa fw class="me-2" icon={faMicrosoft} />
-                            {/if}
                             {#if ssoProvider.kind === SsoProviderKind.Apple}
                                 <Fa fw class="me-2" icon={faApple} />
                             {/if}
-                            {ssoProvider.name || ssoProvider.label}
+                            {ssoProvider.label}
                         </button>
                     {/each}
                 </div>

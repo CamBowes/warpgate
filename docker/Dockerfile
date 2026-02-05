@@ -31,14 +31,12 @@ LABEL maintainer=heywoodlh
 ARG USER_ID=1000
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN <<EOF
-  set -xe
-  apt-get -y update -qq
-  apt-get install --no-install-recommends --no-install-suggests -y \
-    ca-certificates wget
-  apt-get clean
-  rm -rf /var/lib/apt/lists/*
-EOF
+RUN set -xe \
+  && apt-get -y update -qq \
+  && apt-get install --no-install-recommends --no-install-suggests -y \
+    ca-certificates wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # RUN adduser warpgate --system --home /data
 RUN adduser warpgate --disabled-password --gecos "" --uid ${USER_ID} --home /data --shell /usr/sbin/nologin
