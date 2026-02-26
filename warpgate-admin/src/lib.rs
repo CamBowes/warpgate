@@ -16,6 +16,7 @@ pub fn admin_api_app(services: &Services) -> impl IntoEndpoint {
     let config_provider = services.config_provider.clone();
     let recordings = services.recordings.clone();
     let state = services.state.clone();
+    let services = services.clone();
 
     Route::new()
         .nest("", api_service)
@@ -42,4 +43,5 @@ pub fn admin_api_app(services: &Services) -> impl IntoEndpoint {
         .data(state)
         .data(recordings)
         .data(config)
+        .data(services)
 }

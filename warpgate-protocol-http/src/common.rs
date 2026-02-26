@@ -156,9 +156,13 @@ pub async fn is_user_admin(req: &Request, auth: &RequestAuthorization) -> poem::
 }
 
 pub fn endpoint_admin_auth<E: Endpoint + 'static>(e: E) -> impl Endpoint {
-    e.around(|ep, req| async move {
+    e.around(|ep, mut req| async move {
         let auth = Data::<&RequestAuthorization>::from_request_without_body(&req).await?;
         if is_user_admin(&req, &auth).await? {
+            let identity = warpgate_common::api::AdminIdentity {
+                username: auth.username().map(Clone::clone),
+            };
+            req.extensions_mut().insert(identity);
             return Ok(ep.call(req).await?.into_response());
         }
         Err(poem::Error::from_status(StatusCode::UNAUTHORIZED))

@@ -1,5 +1,6 @@
 use poem_openapi::OpenApi;
 
+mod break_glass;
 mod known_hosts_detail;
 mod known_hosts_list;
 mod ldap_servers;
@@ -35,7 +36,7 @@ pub fn get() -> impl OpenApi {
             (roles::ListApi, roles::DetailApi),
             (tickets_list::Api, tickets_detail::Api),
             (known_hosts_list::Api, known_hosts_detail::Api),
-            ssh_keys::Api,
+            (ssh_keys::Api, break_glass::Api),
             logs::Api,
             (targets::ListApi, targets::DetailApi, targets::RolesApi),
             (target_groups::ListApi, target_groups::DetailApi),

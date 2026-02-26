@@ -37,6 +37,9 @@
         '/ssh': wrap({
             asyncComponent: () => import('./SSHKeys.svelte') as any,
         }),
+        '/break-glass': wrap({
+            asyncComponent: () => import('./BreakGlass.svelte') as any,
+        }),
         '/tickets': wrap({
             asyncComponent: () => import('./Tickets.svelte') as any,
         }),
@@ -115,6 +118,14 @@
         title="SSH keys"
         description="Own keys and known hosts"
         href="/config/ssh"
+        small={sidebarMode}
+    />
+
+    <NavListItem
+        class="mb-2"
+        title="Emergency Procedure and Access"
+        description="Break-glass keys when Warpgate is unavailable"
+        href="/config/break-glass"
         small={sidebarMode}
     />
 

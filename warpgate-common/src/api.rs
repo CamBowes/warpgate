@@ -1,3 +1,5 @@
+use http::StatusCode;
+use poem::{FromRequest, Request, RequestBody};
 use poem_openapi::auth::ApiKey;
 use poem_openapi::SecurityScheme;
 
@@ -16,4 +18,21 @@ pub struct CookieSecurityScheme(ApiKey);
 pub enum AnySecurityScheme {
     Token(TokenSecurityScheme),
     Cookie(CookieSecurityScheme),
+}
+
+/// Identity of the admin user for the current request. Set by HTTP layer when admin auth succeeds.
+#[derive(Clone, Debug)]
+pub struct AdminIdentity {
+    /// Username when authenticated as a user; None when using admin token.
+    pub username: Option<String>,
+}
+
+#[poem::async_trait]
+impl FromRequest for AdminIdentity {
+    async fn from_request(req: &Request, _body: &mut RequestBody) -> poem::Result<Self> {
+        req.extensions()
+            .get::<AdminIdentity>()
+            .cloned()
+            .ok_or_else(|| poem::Error::from_status(StatusCode::UNAUTHORIZED))
+    }
 }

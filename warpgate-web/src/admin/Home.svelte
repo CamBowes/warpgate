@@ -70,6 +70,14 @@
         setupState={$serverInfo?.setupState} />
 {/if}
 
+<div class="alert alert-info mb-4" role="region" aria-label="Emergency procedures">
+    <h2 class="alert-heading h5">When Warpgate is unavailable</h2>
+    <p class="mb-1">
+        In an emergency you can use break-glass SSH keys to connect directly to targets. Download and store them securely; each download is logged. Use OpenSSH (<code>ssh -i &lt;key&gt; user@target</code>) or PuTTY (convert PEM to .ppk with PuTTYgen first).
+    </p>
+    <a href="/config/break-glass" use:link class="alert-link">Emergency Procedure and Access →</a>
+</div>
+
 {#if activeSessionCount !== undefined}
 <div class="page-summary-bar">
     {#if activeSessionCount }

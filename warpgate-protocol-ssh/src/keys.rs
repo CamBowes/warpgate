@@ -1,4 +1,4 @@
-use std::fs::{create_dir_all, File};
+use std::fs::{create_dir_all, read, File};
 use std::path::PathBuf;
 
 use anyhow::{Context, Result};
@@ -56,4 +56,23 @@ pub fn load_keys(
         load_secret_key(path.join(format!("{prefix}-ed25519")), None)?,
         load_secret_key(path.join(format!("{prefix}-rsa")), None)?,
     ])
+}
+
+/// Read raw PEM file contents for the given key prefix (e.g. "client").
+/// Returns (filename, contents) for each key file that exists.
+pub fn read_key_pem_contents(
+    config: &WarpgateConfig,
+    params: &GlobalParams,
+    prefix: &str,
+) -> Result<Vec<(String, Vec<u8>)>> {
+    let path = get_keys_path(config, params);
+    let mut out = Vec::new();
+    for name in [format!("{prefix}-ed25519"), format!("{prefix}-rsa")] {
+        let key_path = path.join(&name);
+        if key_path.exists() {
+            let content = read(&key_path).context("reading key file")?;
+            out.push((name, content));
+        }
+    }
+    Ok(out)
 }
