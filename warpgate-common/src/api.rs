@@ -1,4 +1,4 @@
-use http::StatusCode;
+use poem::http::StatusCode;
 use poem::{FromRequest, Request, RequestBody};
 use poem_openapi::auth::ApiKey;
 use poem_openapi::SecurityScheme;
@@ -27,8 +27,8 @@ pub struct AdminIdentity {
     pub username: Option<String>,
 }
 
-#[poem::async_trait]
-impl FromRequest for AdminIdentity {
+#[async_trait::async_trait]
+impl FromRequest<'_> for AdminIdentity {
     async fn from_request(req: &Request, _body: &mut RequestBody) -> poem::Result<Self> {
         req.extensions()
             .get::<AdminIdentity>()
