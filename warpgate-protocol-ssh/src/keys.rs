@@ -1,4 +1,5 @@
 use std::fs::{create_dir_all, read, File};
+use std::ops::Deref;
 use std::path::PathBuf;
 
 use anyhow::{Context, Result};
@@ -91,8 +92,8 @@ pub fn read_key_openssh_contents(
     let names = [format!("{prefix}-ed25519"), format!("{prefix}-rsa")];
     let mut out = Vec::with_capacity(keys.len());
     for (key, name) in keys.into_iter().zip(names) {
-        let content = key.to_openssh(LineEnding::Lf)?;
-        out.push((name, content.as_ref().clone()));
+        let content = key.to_openssh(LineEnding::LF)?;
+        out.push((name, content.deref().clone()));
     }
     Ok(out)
 }

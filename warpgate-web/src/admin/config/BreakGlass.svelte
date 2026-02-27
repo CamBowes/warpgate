@@ -75,7 +75,7 @@
 <h2>Rotating keys after a breach</h2>
 <p>To avoid locking yourself out, <strong>add the new public keys to all targets before removing the old ones</strong>. Use this order:</p>
 <ol>
-    <li>On the Warpgate server: back up then delete the client key files (e.g. <code>client-ed25519</code> and <code>client-rsa</code> in the SSH keys directory (<code>/var/lib/warpgate/ssh-keys</code)).</li>
+    <li>On the Warpgate server: back up then delete the client key files (e.g. <code>client-ed25519</code> and <code>client-rsa</code> in the SSH keys directory (<code>/var/lib/warpgate/ssh-keys</code>)).</li>
     <li>Restart Warpgate so it generates new client keys.</li>
     <li>Get the <strong>new</strong> public keys: run <code>warpgate client-keys</code> on the server, or use Admin → Targets and view “Warpgate’s own keys” for a target.</li>
     <li>Add the new public keys to <code>authorized_keys</code> on <strong>every</strong> target that uses them. Leave the old public keys in place for now.</li>
