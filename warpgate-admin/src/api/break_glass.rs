@@ -57,6 +57,24 @@ Keys are in PEM format. Convert to PuTTY's .ppk format:
 4. In PuTTY: Connection → SSH → Auth → Private key file → select the .ppk
    Or load the .ppk into Pageant.
 5. Connect as usual to the target host.
+
+Rotating keys after a breach (avoiding lockout)
+-----------------------------------------------
+Do NOT remove old keys from targets until new keys are in place and verified.
+Order of operations:
+
+1. On the Warpgate server: back up then delete the client key files
+   (e.g. client-ed25519 and client-rsa in your SSH keys directory).
+2. Restart Warpgate so it generates new client keys.
+3. Get the NEW public keys:
+   - CLI: warpgate client-keys
+   - Or in Admin UI: Targets → configure a target → SSH → "Warpgate's own private keys" / view own keys.
+4. Add the NEW public keys to authorized_keys on EVERY target that uses them.
+   Keep the old public keys in place for now.
+5. Verify access: download break-glass keys from this page and test
+   ssh -i <new-keyfile> <user>@<target> for at least one target.
+6. Remove the OLD public keys from authorized_keys on all targets.
+7. Securely destroy old private key copies (this download, backups, any stored break-glass keys).
 "#;
 
 #[OpenApi]
@@ -74,7 +92,9 @@ impl Api {
         _sec_scheme: AnySecurityScheme,
     ) -> Result<GetBreakGlassKeysResponse, WarpgateError> {
         let config = services.config.lock().await;
-        let keys = warpgate_protocol_ssh::read_key_pem_contents(
+        // Serve keys in OpenSSH PEM format with LF line endings so OpenSSH and PuTTY
+        // accept them (PKCS#8 PEM can cause "Load key: error in libcrypto" on some setups).
+        let keys = warpgate_protocol_ssh::read_key_openssh_contents(
             &config,
             &services.global_params,
             "client",
@@ -100,10 +120,7 @@ impl Api {
 
         let keys: Vec<BreakGlassKey> = keys
             .into_iter()
-            .map(|(filename, content)| {
-                let content = String::from_utf8_lossy(&content).into_owned();
-                BreakGlassKey { filename, content }
-            })
+            .map(|(filename, content)| BreakGlassKey { filename, content })
             .collect();
 
         Ok(GetBreakGlassKeysResponse::Ok(Json(BreakGlassKeysResponse {

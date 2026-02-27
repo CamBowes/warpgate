@@ -2,7 +2,7 @@ use std::fs::{create_dir_all, read, File};
 use std::path::PathBuf;
 
 use anyhow::{Context, Result};
-use russh::keys::{encode_pkcs8_pem, load_secret_key, HashAlg, PrivateKey};
+use russh::keys::{encode_pkcs8_pem, load_secret_key, HashAlg, LineEnding, PrivateKey};
 use tracing::*;
 use warpgate_common::helpers::fs::{secure_directory, secure_file};
 use warpgate_common::helpers::rng::get_crypto_rng;
@@ -73,6 +73,25 @@ pub fn read_key_pem_contents(
             let content = read(&key_path).context("reading key file")?;
             out.push((name, content));
         }
+    }
+    Ok(out)
+}
+
+/// Read client keys and return them in OpenSSH PEM format (LF line endings).
+/// Use this for break-glass downloads so OpenSSH and PuTTY accept the keys
+/// without "error in libcrypto" that can occur with PKCS#8 PEM from some setups.
+/// Returns (filename, openssh_pem_string) for each key.
+pub fn read_key_openssh_contents(
+    config: &WarpgateConfig,
+    params: &GlobalParams,
+    prefix: &str,
+) -> Result<Vec<(String, String)>, russh::keys::Error> {
+    let keys = load_keys(config, params, prefix)?;
+    let names = [format!("{prefix}-ed25519"), format!("{prefix}-rsa")];
+    let mut out = Vec::with_capacity(keys.len());
+    for (key, name) in keys.into_iter().zip(names) {
+        let content = key.to_openssh(LineEnding::LF)?;
+        out.push((name, content.as_ref().to_string()));
     }
     Ok(out)
 }
