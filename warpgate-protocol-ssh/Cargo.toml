@@ -14,6 +14,7 @@ dialoguer.workspace = true
 curve25519-dalek = { version = "4.0.0", default-features = false } # pin due to build fail on x86
 ed25519-dalek = { version = "2.0.0", default-features = false } # pin due to build fail on x86 in 2.1
 futures.workspace = true
+internal-russh-forked-ssh-key = "0.6.16+upstream-0.6.7"
 russh.workspace = true
 sea-orm.workspace = true
 thiserror.workspace = true
