@@ -5,7 +5,7 @@ use poem::web::Data;
 use poem_openapi::payload::Json;
 use poem_openapi::{ApiResponse, Object, OpenApi};
 use sea_orm::ActiveValue::Set;
-use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait};
+use sea_orm::{ActiveModelTrait, DatabaseConnection};
 use serde::Serialize;
 use tokio::sync::Mutex;
 use uuid::Uuid;
@@ -88,7 +88,7 @@ impl Api {
         let log_entry = LogEntry::ActiveModel {
             id: Set(Uuid::new_v4()),
             text: Set("Break-glass SSH keys downloaded".to_string()),
-            values: Set(serde_json::json!({"action": "break_glass_keys_download"}).into()),
+            values: Set(serde_json::json!({"action": "break_glass_keys_download"})),
             timestamp: Set(Utc::now()),
             session_id: Set(Uuid::nil()),
             username: Set(Some(username)),
