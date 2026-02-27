@@ -28,8 +28,8 @@ pub struct AdminIdentity {
 }
 
 #[async_trait::async_trait]
-impl FromRequest<'_> for AdminIdentity {
-    async fn from_request(req: &Request, _body: &mut RequestBody) -> poem::Result<Self> {
+impl<'a> FromRequest<'a> for AdminIdentity {
+    async fn from_request(req: &'a Request, _body: &mut RequestBody) -> poem::Result<Self> {
         req.extensions()
             .get::<AdminIdentity>()
             .cloned()
